@@ -11,16 +11,16 @@ class DriverRepository {
 
   Future<DriverDashboardData> getDashboard() async {
     try {
-      final driverResponse = await _client.dio.get('/drivers/me');
-      final busResponse = await _client.dio.get('/drivers/me/bus');
-      final studentsResponse = await _client.dio.get('/drivers/me/students');
+      final driverResponse = await _client.dio.get('drivers/me');
+      final busResponse = await _client.dio.get('drivers/me/bus');
+      final studentsResponse = await _client.dio.get('drivers/me/students');
       final driver = DriverProfile.fromJson(_mapData(driverResponse.data)!);
       final busJson = _mapData(busResponse.data);
       final bus = busJson == null ? null : DriverBus.fromJson(busJson);
       DriverTrip? trip;
       if (bus != null) {
         final tripResponse = await _client.dio.get(
-          '/buses/${bus.id}/active-trip',
+          'buses/${bus.id}/active-trip',
         );
         final tripJson = _mapData(tripResponse.data);
         if (tripJson != null) trip = DriverTrip.fromJson(tripJson);
@@ -42,7 +42,7 @@ class DriverRepository {
   Future<void> startTrip(String busId, String tripType) async {
     try {
       await _client.dio.post(
-        '/trips/start',
+        'trips/start',
         data: {'busId': busId, 'tripType': tripType},
       );
     } catch (error) {
@@ -53,7 +53,7 @@ class DriverRepository {
   Future<void> confirmDropoff(String tripId, String studentId) async {
     try {
       await _client.dio.post(
-        '/trips/$tripId/confirm-dropoff',
+        'trips/$tripId/confirm-dropoff',
         data: {'studentId': studentId},
       );
     } catch (error) {
@@ -63,7 +63,7 @@ class DriverRepository {
 
   Future<void> completeTrip(String tripId) async {
     try {
-      await _client.dio.post('/trips/$tripId/complete');
+      await _client.dio.post('trips/$tripId/complete');
     } catch (error) {
       throw ApiClient.mapError(error);
     }
@@ -72,7 +72,7 @@ class DriverRepository {
   Future<void> setScannerMode(String scanMode) async {
     try {
       await _client.dio.patch(
-        '/drivers/me/scanner-mode',
+        'drivers/me/scanner-mode',
         data: {'scanMode': scanMode},
       );
     } catch (error) {

@@ -6,7 +6,7 @@ class AppConfig {
   );
   static const bool useFirebaseEmulators = bool.fromEnvironment(
     'USE_FIREBASE_EMULATORS',
-    defaultValue: true,
+    defaultValue: false,
   );
   static const String emulatorHost = String.fromEnvironment(
     'EMULATOR_HOST',
@@ -19,7 +19,7 @@ class AppConfig {
   static const String apiBaseUrl = String.fromEnvironment(
     'API_BASE_URL',
     defaultValue:
-        'http://10.0.2.2:5001/saferide-lk-3500b/asia-south1/api/api/v1/',
+        'https://asia-south1-saferide-lk-3500b.cloudfunctions.net/api/api/v1/',
   );
   static const Duration connectTimeout = Duration(seconds: 15);
   static const Duration receiveTimeout = Duration(seconds: 20);

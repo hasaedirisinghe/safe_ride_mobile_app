@@ -43,10 +43,26 @@ class SessionController extends Notifier<SessionState> {
       state = const SessionState(SessionStatus.unauthenticated);
       return;
     }
-    state = SessionState(
-      SessionStatus.authenticated,
-      role: await _roleFor(user),
-    );
+    try {
+      state = SessionState(
+        SessionStatus.authenticated,
+        role: await _roleFor(user),
+      );
+    } on FirebaseAuthException catch (error) {
+      await FirebaseAuth.instance.signOut();
+      state = SessionState(
+        SessionStatus.unauthenticated,
+        error: error.code == 'network-request-failed' || error.code == 'unknown'
+            ? 'Unable to connect to Firebase. Check your connection and try again.'
+            : 'Your session could not be restored. Please sign in again.',
+      );
+    } catch (_) {
+      await FirebaseAuth.instance.signOut();
+      state = const SessionState(
+        SessionStatus.unauthenticated,
+        error: 'Your session could not be restored. Please sign in again.',
+      );
+    }
   }
 
   Future<bool> login(String email, String password) async {
