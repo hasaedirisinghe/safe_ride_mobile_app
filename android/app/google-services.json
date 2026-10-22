@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "171982717971",
+    "project_id": "saferide-lk-3500b",
+    "storage_bucket": "saferide-lk-3500b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:171982717971:android:c18cd1933d66ab85c82be6",
+        "android_client_info": {
+          "package_name": "lk.saferide.parent"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAjk-Dq8fBijnlF6MQmHFsrXid-zF_0k7k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
